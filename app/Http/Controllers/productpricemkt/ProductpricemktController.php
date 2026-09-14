@@ -1,0 +1,105 @@
+<?php
+
+namespace App\Http\Controllers\productpricemkt;
+
+use App\Http\Controllers\Controller;
+use App\Models\productprice\ProductPrice;
+use App\Models\productpricemkt\ProductPriceHistorySearch;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
+class ProductpricemktController extends Controller
+{
+    public function index(Request $request)
+    {
+        $data = ProductPrice::with(['product' => function ($query) {
+            $query->select('id_product', 'code_product', 'nm_product', 'product_deskripsi');
+        }])
+        ->where('flag_active', 1)
+        ->orderBy('date_update', 'desc')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ]);
+    }
+
+    public function show(Request $request, $id)
+    {
+        $data = ProductPrice::with(['product' => function ($query) {
+            $query->select('id_product', 'code_product', 'nm_product', 'link_brosur', 'product_deskripsi');
+        }, 'options'])
+        ->where('id_product', $id)
+        ->where('flag_active', 1)
+        ->first();
+
+        if ($data) {
+            $username = $request->user()->username ?? 'system';
+            
+            // Insert history search
+            ProductPriceHistorySearch::create([
+                'id_product' => $id,
+                'username' => $username,
+                'date_create' => now(),
+            ]);
+
+            Log::info('Mencari Product ' . $id);
+
+            $kurs = $data->kurs_bank ?? 15000;
+
+            $options = [];
+            if ($data->options) {
+                foreach ($data->options as $row) {
+                    $options[] = [
+                        'id_product_price_opt' => $row->id_product_price_opt,
+                        'nm_product_opt' => $row->nm_product_opt,
+                        'amount' => $row->amount,
+                        'kurs' => $kurs,
+                        'estimasi' => $kurs * $row->amount
+                    ];
+                }
+            }
+
+            $hasil = [
+                'id_product' => $data->id_product,
+                'code_product' => $data->product->code_product ?? '',
+                'nm_product' => $data->product->nm_product ?? '',
+                'product_price' => $data->product_price,
+                'product_price_agent' => $data->product_price_agent,
+                'date_create' => $data->date_update,
+                'kurs_bank' => $kurs,
+                'estimasi' => $kurs * $data->product_price,
+                'id_product_global' => encrypt($data->id_product),
+                'link_brosur' => $data->product->link_brosur ?? '',
+                'product_deskripsi' => $data->product->product_deskripsi ?? '',
+                'data_options' => $options
+            ];
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $hasil
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data not found'
+            ], 404);
+        }
+    }
+
+    public function tambahKeranjang(Request $request)
+    {
+        $id_product = $request->input('id_product');
+        $qty = $request->input('qty', 1);
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Berhasil ditambahkan ke keranjang',
+            'data' => [
+                'id_product' => $id_product,
+                'qty' => $qty
+            ]
+        ]);
+    }
+}
