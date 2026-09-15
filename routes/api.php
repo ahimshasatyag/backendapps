@@ -397,3 +397,17 @@ Route::prefix('purchaserequisitions')->group(function () {
     Route::put('/{id}', [\App\Http\Controllers\purchaserequisitions\PurchaserequisitionController::class, 'update']);
     Route::post('/{id}/ajukan', [\App\Http\Controllers\purchaserequisitions\PurchaserequisitionController::class, 'ajukan']);
 });
+
+// Endpoint: Quotations AP API
+Route::prefix('quotationsap')->group(function () {
+    Route::get('/', [\App\Http\Controllers\quotationsap\QuotationsapController::class, 'index']);
+    Route::get('/support-data', [\App\Http\Controllers\quotationsap\QuotationsapController::class, 'supportData']);
+    Route::post('/product-detail', [\App\Http\Controllers\quotationsap\QuotationsapController::class, 'getProductDetail']);
+    Route::post('/lokasi', [\App\Http\Controllers\quotationsap\QuotationsapController::class, 'getLokasi']);
+    Route::post('/mata-uang-default', [\App\Http\Controllers\quotationsap\QuotationsapController::class, 'getMataUangDefault']);
+    Route::get('/{id}', [\App\Http\Controllers\quotationsap\QuotationsapController::class, 'show']);
+    Route::post('/', [\App\Http\Controllers\quotationsap\QuotationsapController::class, 'store']);
+    Route::post('/{id}', [\App\Http\Controllers\quotationsap\QuotationsapController::class, 'update']);
+    Route::post('/{id}/confirm', [\App\Http\Controllers\quotationsap\QuotationsapController::class, 'confirm']);
+    Route::post('/{id}/cancel', [\App\Http\Controllers\quotationsap\QuotationsapController::class, 'cancel']);
+});
