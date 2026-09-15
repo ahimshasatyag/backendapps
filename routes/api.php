@@ -20,6 +20,8 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\productsn\ProductsnController;
 use App\Http\Controllers\survey\SurveyController;
 use App\Http\Controllers\salescontract\SalescontractController;
+use App\Http\Controllers\salesretur\SalesreturController;
+use App\Http\Controllers\suppliers\SupplierController;
 
 // Endpoint: POST /api/login
 Route::post('/login', [LoginController::class, 'login'])->name('api.login');
@@ -359,3 +361,26 @@ Route::prefix('salescontract')->group(function () {
     Route::put('/{id}', [SalescontractController::class, 'update']);
 });
 
+// Endpoint: Sales Retur API
+Route::prefix('salesretur')->group(function () {
+    Route::get('/', [SalesreturController::class, 'index']);
+    Route::get('/support-data', [SalesreturController::class, 'supportData']);
+    Route::post('/get-do', [SalesreturController::class, 'getDo']);
+    Route::post('/get-do-detail', [SalesreturController::class, 'getDoDetail']);
+    Route::post('/get-so', [SalesreturController::class, 'getSo']);
+    Route::get('/{id}', [SalesreturController::class, 'show']);
+    Route::post('/', [SalesreturController::class, 'store']);
+    Route::put('/{id}', [SalesreturController::class, 'update']);
+    Route::post('/{id}/confirm', [SalesreturController::class, 'confirm']);
+    Route::post('/{id}/cancel', [SalesreturController::class, 'cancel']);
+});
+
+// Endpoint: Suppliers API
+Route::prefix('suppliers')->group(function () {
+    Route::get('/', [SupplierController::class, 'index']);
+    Route::get('/support-data', [SupplierController::class, 'supportData']);
+    Route::get('/{id}', [SupplierController::class, 'show']);
+    Route::post('/', [SupplierController::class, 'store']);
+    Route::post('/{id}', [SupplierController::class, 'update']);
+    Route::post('/search', [SupplierController::class, 'cariSupplier']);
+});
