@@ -48,7 +48,7 @@ class SupplierController extends Controller
      */
     public function supportData(Request $request)
     {
-        $mata_uangs = DB::table('m_mata_uang')->get();
+        $mata_uangs = DB::table('m_mata_uang')->select('id_mata_uang', 'name')->get();
 
         return response()->json([
             'status' => true,
@@ -70,7 +70,7 @@ class SupplierController extends Controller
             ->where('id_suppliers', $id)
             ->get();
 
-        $mata_uangs = DB::table('m_mata_uang')->get();
+        $mata_uangs = DB::table('m_mata_uang')->select('id_mata_uang', 'name')->get();
 
         return response()->json([
             'status' => true,

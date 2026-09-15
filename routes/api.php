@@ -384,3 +384,16 @@ Route::prefix('suppliers')->group(function () {
     Route::post('/{id}', [SupplierController::class, 'update']);
     Route::post('/search', [SupplierController::class, 'cariSupplier']);
 });
+
+// Endpoint: Purchase Requisitions API
+Route::prefix('purchaserequisitions')->group(function () {
+    Route::get('/', [\App\Http\Controllers\purchaserequisitions\PurchaserequisitionController::class, 'index']);
+    Route::get('/support-data', [\App\Http\Controllers\purchaserequisitions\PurchaserequisitionController::class, 'supportData']);
+    Route::post('/detail-barang', [\App\Http\Controllers\purchaserequisitions\PurchaserequisitionController::class, 'detailBarang']);
+    Route::get('/list-pr', [\App\Http\Controllers\purchaserequisitions\PurchaserequisitionController::class, 'listPr']);
+    Route::post('/simpan-po', [\App\Http\Controllers\purchaserequisitions\PurchaserequisitionController::class, 'simpanPo']);
+    Route::get('/{id}', [\App\Http\Controllers\purchaserequisitions\PurchaserequisitionController::class, 'show']);
+    Route::post('/', [\App\Http\Controllers\purchaserequisitions\PurchaserequisitionController::class, 'store']);
+    Route::put('/{id}', [\App\Http\Controllers\purchaserequisitions\PurchaserequisitionController::class, 'update']);
+    Route::post('/{id}/ajukan', [\App\Http\Controllers\purchaserequisitions\PurchaserequisitionController::class, 'ajukan']);
+});
