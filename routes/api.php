@@ -422,3 +422,13 @@ Route::prefix('po')->group(function () {
     Route::post('/{id}/confirm', [\App\Http\Controllers\po\PoController::class, 'confirm']);
     Route::post('/{id}/cancel', [\App\Http\Controllers\po\PoController::class, 'cancel']);
 });
+
+// Endpoint: Incoming Shipment API
+Route::prefix('incshipment')->group(function () {
+    Route::get('/', [\App\Http\Controllers\incshipment\IncshipmentController::class, 'index']);
+    Route::get('/{id}', [\App\Http\Controllers\incshipment\IncshipmentController::class, 'show']);
+    Route::post('/{id}/receive', [\App\Http\Controllers\incshipment\IncshipmentController::class, 'receive']);
+    Route::post('/{id}/assign-sn', [\App\Http\Controllers\incshipment\IncshipmentController::class, 'assignSn']);
+    Route::post('/{id}/print-barcode', [\App\Http\Controllers\incshipment\IncshipmentController::class, 'printBarcode']);
+});
+
