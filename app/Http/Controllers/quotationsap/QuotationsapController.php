@@ -79,7 +79,10 @@ class QuotationsapController extends Controller
 
         $options = DB::table('m_product_price_opt')
             ->where('id_product', $id_product)
-            ->select('nm_product_opt')
+            ->where(function($q) {
+                $q->where('f_cancel', 0)->orWhereNull('f_cancel');
+            })
+            ->select('id_product_price_opt', 'nm_product_opt', 'amount')
             ->get();
 
         if ($data) {
@@ -373,43 +376,41 @@ class QuotationsapController extends Controller
                             'notes' => $notes
                         ]);
                     }
-                }
-            }
 
-            // Process Options Data
-            $id_po_dtl_array = $request->input('id_po_dtl');
-            $id_product_array = $request->input('id_product');
-            $options = $request->input('options');
+                    // Options logic (same as store)
+                    $options = $request->input('options' . $i);
+                    $nm_product_opt_array = $request->input('nm_product_opt' . $i);
+                    $harga_opt_array = $request->input('harga' . $i);
 
-            if (!empty($id_po_dtl_array) && is_array($id_po_dtl_array)) {
-                foreach ($id_po_dtl_array as $no => $id_po_dtl_val) {
-                    $id_product_opt = $id_product_array[$no] ?? null;
-                    
-                    DB::table('tb_po_opt_dtl')->where('id_po_dtl', $id_po_dtl_val)->delete();
+                    if (!empty($options) && is_array($options) && isset($id_po_dtl)) {
+                        foreach ($options as $key => $opt_id_product) {
+                            $nm_product_opt = $nm_product_opt_array[$key] ?? null;
+                            $harga_raw = $harga_opt_array[$key] ?? null;
 
-                    if (isset($options[$no]) && is_array($options[$no])) {
-                        foreach ($options[$no] as $opt_id_po => $opt_data) {
-                            if (isset($opt_data['checked'])) {
-                                $nm_product_opt = $opt_data['nm_product_opt'] ?? null;
-                                $harga_raw = $opt_data['harga'] ?? null;
-
-                                if (!empty($nm_product_opt) && isset($harga_raw)) {
-                                    $harga = str_replace(',', '', $harga_raw);
-                                    if (is_numeric($harga)) {
-                                        DB::table('tb_po_opt_dtl')->insert([
-                                            'id_po_dtl' => $id_po_dtl_val,
-                                            'id_product' => $id_product_opt,
-                                            'id_po' => $id_po,
-                                            'nm_product_opt' => $nm_product_opt,
-                                            'harga' => floatval($harga)
-                                        ]);
-                                    }
+                            if (!empty($nm_product_opt) && isset($harga_raw)) {
+                                $harga = str_replace(',', '', $harga_raw);
+                                if (is_numeric($harga)) {
+                                    DB::table('tb_po_opt_dtl')->insert([
+                                        'id_po_dtl' => $id_po_dtl,
+                                        'id_product' => $opt_id_product,
+                                        'id_po' => $id_po,
+                                        'nm_product_opt' => $nm_product_opt,
+                                        'harga' => floatval($harga)
+                                    ]);
                                 }
                             }
                         }
                     }
                 }
             }
+
+            // Clean up old options
+            DB::table('tb_po_opt_dtl')
+                ->where('id_po', $id_po)
+                ->whereNotIn('id_po_dtl', function ($query) use ($id_po) {
+                    $query->select('id_po_dtl')->from('tb_po_dtl')->where('id_po', $id_po);
+                })
+                ->delete();
 
             DB::table('tb_po_hdr')->where('id_po', $id_po)->update(['amount_total' => $amount_total]);
 
