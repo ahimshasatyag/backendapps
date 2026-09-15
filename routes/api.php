@@ -411,3 +411,14 @@ Route::prefix('quotationsap')->group(function () {
     Route::post('/{id}/confirm', [\App\Http\Controllers\quotationsap\QuotationsapController::class, 'confirm']);
     Route::post('/{id}/cancel', [\App\Http\Controllers\quotationsap\QuotationsapController::class, 'cancel']);
 });
+
+// Endpoint: PO API
+Route::prefix('po')->group(function () {
+    Route::get('/', [\App\Http\Controllers\po\PoController::class, 'index']);
+    Route::get('/support-data', [\App\Http\Controllers\po\PoController::class, 'supportData']);
+    Route::get('/{id}', [\App\Http\Controllers\po\PoController::class, 'show']);
+    Route::post('/', [\App\Http\Controllers\po\PoController::class, 'store']);
+    Route::post('/{id}', [\App\Http\Controllers\po\PoController::class, 'update']);
+    Route::post('/{id}/confirm', [\App\Http\Controllers\po\PoController::class, 'confirm']);
+    Route::post('/{id}/cancel', [\App\Http\Controllers\po\PoController::class, 'cancel']);
+});
