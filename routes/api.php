@@ -432,3 +432,18 @@ Route::prefix('incshipment')->group(function () {
     Route::post('/{id}/print-barcode', [\App\Http\Controllers\incshipment\IncshipmentController::class, 'printBarcode']);
 });
 
+// Endpoint: Payment API
+Route::prefix('payment')->group(function () {
+    Route::get('/', [\App\Http\Controllers\payment\PaymentController::class, 'index']);
+    Route::get('/support-data', [\App\Http\Controllers\payment\PaymentController::class, 'supportData']);
+    Route::get('/invoice-customers/{id_customers}', [\App\Http\Controllers\payment\PaymentController::class, 'getInvoiceByCustomer']);
+    Route::get('/invoice/{id_invoice}', [\App\Http\Controllers\payment\PaymentController::class, 'getCustomerByInvoice']);
+    Route::post('/', [\App\Http\Controllers\payment\PaymentController::class, 'store']);
+    Route::post('/ganti-status', [\App\Http\Controllers\payment\PaymentController::class, 'changeStatus']);
+    Route::get('/{id}', [\App\Http\Controllers\payment\PaymentController::class, 'show']);
+    Route::post('/{id}', [\App\Http\Controllers\payment\PaymentController::class, 'update']);
+    Route::post('/{id}/delete', [\App\Http\Controllers\payment\PaymentController::class, 'cancel']);
+    Route::post('/{id}/split', [\App\Http\Controllers\payment\PaymentController::class, 'split']);
+});
+
+
