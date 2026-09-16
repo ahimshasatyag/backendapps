@@ -446,4 +446,12 @@ Route::prefix('payment')->group(function () {
     Route::post('/{id}/split', [\App\Http\Controllers\payment\PaymentController::class, 'split']);
 });
 
+// Endpoint: Akt Kasbankin API
+Route::prefix('akt-kasbankin')->group(function () {
+    Route::get('/', [\App\Http\Controllers\akt_kasbankin\AktKasbankinController::class, 'index']);
+    Route::get('/support-data', [\App\Http\Controllers\akt_kasbankin\AktKasbankinController::class, 'supportData']);
+    Route::get('/so-detail/{id_so}', [\App\Http\Controllers\akt_kasbankin\AktKasbankinController::class, 'getSoDetail']);
+    Route::post('/', [\App\Http\Controllers\akt_kasbankin\AktKasbankinController::class, 'store']);
+});
+
 
