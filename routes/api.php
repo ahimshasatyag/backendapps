@@ -489,4 +489,12 @@ Route::prefix('approve')->group(function () {
     Route::post('/approval-request', [\App\Http\Controllers\approve\ApproveController::class, 'approvalRequest']);
 });
 
+// Endpoint: Approve Baru API
+Route::prefix('approvebaru')->group(function () {
+    Route::get('/', [\App\Http\Controllers\approvebaru\ApprovebaruController::class, 'index']);
+    Route::post('/approval-approve', [\App\Http\Controllers\approvebaru\ApprovebaruController::class, 'approvalApprove']);
+    Route::post('/approval-reject', [\App\Http\Controllers\approvebaru\ApprovebaruController::class, 'approvalReject']);
+    Route::post('/get-approval-details', [\App\Http\Controllers\approvebaru\ApprovebaruController::class, 'getApprovalDetails']);
+});
+
 
