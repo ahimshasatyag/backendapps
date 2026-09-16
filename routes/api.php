@@ -460,4 +460,13 @@ Route::prefix('matauang')->group(function () {
     Route::post('/get-kurs', [\App\Http\Controllers\matauang\MatauangController::class, 'getKurs']);
 });
 
+// Endpoint: Assets API
+Route::prefix('assets')->group(function () {
+    Route::get('/', [\App\Http\Controllers\assets\AssetsController::class, 'index']);
+    Route::get('/support-data', [\App\Http\Controllers\assets\AssetsController::class, 'supportData']);
+    Route::get('/{id}', [\App\Http\Controllers\assets\AssetsController::class, 'show']);
+    Route::post('/', [\App\Http\Controllers\assets\AssetsController::class, 'store']);
+    Route::put('/{id}', [\App\Http\Controllers\assets\AssetsController::class, 'update']);
+});
+
 
