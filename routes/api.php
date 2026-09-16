@@ -519,4 +519,15 @@ Route::prefix('logbookproduct')->group(function () {
     Route::post('/upload-gambar', [\App\Http\Controllers\logbookproduct\LogbookproductController::class, 'uploadGambar']);
 });
 
+// Endpoint: Logbook Customers API
+Route::prefix('logbookcustomers')->group(function () {
+    Route::get('/', [\App\Http\Controllers\logbookcustomers\LogbookcustomersController::class, 'index']);
+    Route::get('/create', [\App\Http\Controllers\logbookcustomers\LogbookcustomersController::class, 'create']);
+    Route::post('/', [\App\Http\Controllers\logbookcustomers\LogbookcustomersController::class, 'store']);
+    Route::get('/{id_log_book}', [\App\Http\Controllers\logbookcustomers\LogbookcustomersController::class, 'show']);
+    Route::post('/update', [\App\Http\Controllers\logbookcustomers\LogbookcustomersController::class, 'update']);
+    Route::post('/delete', [\App\Http\Controllers\logbookcustomers\LogbookcustomersController::class, 'destroy']);
+    Route::post('/upload-gambar', [\App\Http\Controllers\logbookcustomers\LogbookcustomersController::class, 'uploadGambar']);
+});
+
 
