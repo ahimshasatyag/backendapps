@@ -469,4 +469,13 @@ Route::prefix('assets')->group(function () {
     Route::put('/{id}', [\App\Http\Controllers\assets\AssetsController::class, 'update']);
 });
 
+// Endpoint: Inventory Schedule API
+Route::prefix('inventoryschedule')->group(function () {
+    Route::get('/', [\App\Http\Controllers\inventoryschedule\InventoryscheduleController::class, 'index']);
+    Route::get('/support-data', [\App\Http\Controllers\inventoryschedule\InventoryscheduleController::class, 'supportData']);
+    Route::get('/{id}', [\App\Http\Controllers\inventoryschedule\InventoryscheduleController::class, 'show']);
+    Route::post('/', [\App\Http\Controllers\inventoryschedule\InventoryscheduleController::class, 'store']);
+    Route::put('/{id}', [\App\Http\Controllers\inventoryschedule\InventoryscheduleController::class, 'update']);
+});
+
 
