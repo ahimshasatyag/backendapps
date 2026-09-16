@@ -497,4 +497,15 @@ Route::prefix('approvebaru')->group(function () {
     Route::post('/get-approval-details', [\App\Http\Controllers\approvebaru\ApprovebaruController::class, 'getApprovalDetails']);
 });
 
+// Endpoint: SOP API
+Route::prefix('sop')->group(function () {
+    Route::get('/', [\App\Http\Controllers\sop\SopController::class, 'index']);
+    Route::get('/divisi', [\App\Http\Controllers\sop\SopController::class, 'dataDivisi']);
+    Route::get('/list-sop/{divisi}', [\App\Http\Controllers\sop\SopController::class, 'listSop']);
+    Route::post('/', [\App\Http\Controllers\sop\SopController::class, 'store']);
+    Route::get('/{id_sop}', [\App\Http\Controllers\sop\SopController::class, 'show']);
+    Route::post('/update', [\App\Http\Controllers\sop\SopController::class, 'update']);
+    Route::post('/confirm', [\App\Http\Controllers\sop\SopController::class, 'confirm']);
+});
+
 
