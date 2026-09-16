@@ -478,4 +478,15 @@ Route::prefix('inventoryschedule')->group(function () {
     Route::put('/{id}', [\App\Http\Controllers\inventoryschedule\InventoryscheduleController::class, 'update']);
 });
 
+// Endpoint: Approve API
+Route::prefix('approve')->group(function () {
+    Route::get('/', [\App\Http\Controllers\approve\ApproveController::class, 'index']);
+    Route::post('/process', [\App\Http\Controllers\approve\ApproveController::class, 'approve']);
+    Route::get('/detail', [\App\Http\Controllers\approve\ApproveController::class, 'detail']);
+    Route::post('/approval-approve', [\App\Http\Controllers\approve\ApproveController::class, 'approvalApprove']);
+    Route::post('/approval-reject', [\App\Http\Controllers\approve\ApproveController::class, 'approvalReject']);
+    Route::post('/approval-ignore', [\App\Http\Controllers\approve\ApproveController::class, 'approvalIgnore']);
+    Route::post('/approval-request', [\App\Http\Controllers\approve\ApproveController::class, 'approvalRequest']);
+});
+
 
