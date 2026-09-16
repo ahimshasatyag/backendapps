@@ -508,4 +508,15 @@ Route::prefix('sop')->group(function () {
     Route::post('/confirm', [\App\Http\Controllers\sop\SopController::class, 'confirm']);
 });
 
+// Endpoint: Logbook Product API
+Route::prefix('logbookproduct')->group(function () {
+    Route::get('/', [\App\Http\Controllers\logbookproduct\LogbookproductController::class, 'index']);
+    Route::get('/create', [\App\Http\Controllers\logbookproduct\LogbookproductController::class, 'create']);
+    Route::post('/', [\App\Http\Controllers\logbookproduct\LogbookproductController::class, 'store']);
+    Route::get('/{id_log_book}', [\App\Http\Controllers\logbookproduct\LogbookproductController::class, 'show']);
+    Route::post('/update', [\App\Http\Controllers\logbookproduct\LogbookproductController::class, 'update']);
+    Route::post('/delete', [\App\Http\Controllers\logbookproduct\LogbookproductController::class, 'destroy']);
+    Route::post('/upload-gambar', [\App\Http\Controllers\logbookproduct\LogbookproductController::class, 'uploadGambar']);
+});
+
 
