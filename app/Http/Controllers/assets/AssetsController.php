@@ -10,7 +10,7 @@ use App\Models\assets\Assets;
 class AssetsController extends Controller
 {
     /**
-     * Menampilkan data list Asset (mirip fungsi data/index pada Cform)
+     * Menampilkan data list Asset 
      */
     public function index(Request $request)
     {
@@ -26,7 +26,7 @@ class AssetsController extends Controller
     }
 
     /**
-     * Mendapatkan data pendukung untuk form tambah/edit (mirip yang dipanggil di tambah() / edit())
+     * Mendapatkan data pendukung untuk form tambah/edit
      */
     public function supportData()
     {
@@ -58,7 +58,7 @@ class AssetsController extends Controller
     }
 
     /**
-     * Proses simpan data (mirip fungsi simpan pada Cform)
+     * Proses simpan data 
      */
     public function store(Request $request)
     {
@@ -148,7 +148,7 @@ class AssetsController extends Controller
     }
 
     /**
-     * Proses update data (mirip fungsi update pada Cform)
+     * Proses update data 
      */
     public function update(Request $request, $id)
     {

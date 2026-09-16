@@ -10,7 +10,7 @@ use App\Models\akt_kasbankin\AktKasbankin;
 class AktKasbankinController extends Controller
 {
     /**
-     * Menampilkan data list KB Masuk (mirip fungsi index/bacasemua pada Cform)
+     * Menampilkan data list KB Masuk
      */
     public function index(Request $request)
     {
@@ -39,7 +39,7 @@ class AktKasbankinController extends Controller
     }
 
     /**
-     * Mendapatkan detail SO (mirip fungsi get_so_detail pada Cform)
+     * Mendapatkan detail SO
      */
     public function getSoDetail($id_so)
     {
@@ -51,7 +51,7 @@ class AktKasbankinController extends Controller
     }
 
     /**
-     * Proses simpan data header dan detail (mirip fungsi simpan pada Cform)
+     * Proses simpan data header dan detail
      */
     public function store(Request $request)
     {
@@ -75,9 +75,9 @@ class AktKasbankinController extends Controller
             
             $v_amount = str_replace(',', '', $request->v_amount);
             
-            $id_coa_array = $request->id_coa; // Diharapkan array of ID dari frontend
-            $amount_array = $request->amount; // Diharapkan array of amount dari frontend
-            $deskripsi_array = $request->deskripsi; // Diharapkan array of deskripsi dari frontend
+            $id_coa_array = $request->id_coa; 
+            $amount_array = $request->amount; 
+            $deskripsi_array = $request->deskripsi; 
             
             // Cek ketersediaan fungsi helper runningnumber_bulan2
             $code_kb_masuk = '';
@@ -88,12 +88,11 @@ class AktKasbankinController extends Controller
                     $code_kb_masuk = runningnumber_bulan2('BM', $periode);
                 }
             } else {
-                // Fallback / mockup jika helper tidak ada di Laravel
                 $prefix = strtoupper($type_kb) == 'K' ? 'KM' : 'BM';
                 $code_kb_masuk = $prefix . '-' . $periode . '-' . rand(1000, 9999);
             }
             
-            // Simpan ke tb_kb_masuk_hdr (mirip insert_kb_masuk_hdr)
+            // Simpan ke tb_kb_masuk_hdr
             $id_kb_masuk = DB::table('tb_kb_masuk_hdr')->insertGetId([
                 'code_kb_masuk' => $code_kb_masuk,
                 'type_kb' => $type_kb,
@@ -107,7 +106,7 @@ class AktKasbankinController extends Controller
                 'date_create' => now()
             ]);
             
-            // Simpan ke tb_kb_masuk_dtl (mirip insert_kb_masuk_dtl)
+            // Simpan ke tb_kb_masuk_dtl 
             if ($id_coa_array && is_array($id_coa_array)) {
                 foreach ($id_coa_array as $key => $id_coa_baru) {
                     $amount_baru = str_replace(',', '', $amount_array[$key] ?? 0);
