@@ -530,4 +530,10 @@ Route::prefix('logbookcustomers')->group(function () {
     Route::post('/upload-gambar', [\App\Http\Controllers\logbookcustomers\LogbookcustomersController::class, 'uploadGambar']);
 });
 
+// Endpoint: Cek Serial Number API
+Route::prefix('cekserialnumber')->group(function () {
+    Route::get('/', [\App\Http\Controllers\cekserialnumber\CekserialnumberController::class, 'index']);
+    Route::post('/detail', [\App\Http\Controllers\cekserialnumber\CekserialnumberController::class, 'detailSerial']);
+});
+
 
