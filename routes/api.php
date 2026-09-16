@@ -454,4 +454,10 @@ Route::prefix('akt-kasbankin')->group(function () {
     Route::post('/', [\App\Http\Controllers\akt_kasbankin\AktKasbankinController::class, 'store']);
 });
 
+// Endpoint: Matauang API
+Route::prefix('matauang')->group(function () {
+    Route::get('/', [\App\Http\Controllers\matauang\MatauangController::class, 'index']);
+    Route::post('/get-kurs', [\App\Http\Controllers\matauang\MatauangController::class, 'getKurs']);
+});
+
 
