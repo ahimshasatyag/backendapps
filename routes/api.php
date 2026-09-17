@@ -22,6 +22,7 @@ use App\Http\Controllers\survey\SurveyController;
 use App\Http\Controllers\salescontract\SalescontractController;
 use App\Http\Controllers\salesretur\SalesreturController;
 use App\Http\Controllers\suppliers\SupplierController;
+use App\Http\Controllers\listso\ListsoController;
 
 // Endpoint: POST /api/login
 Route::post('/login', [LoginController::class, 'login'])->name('api.login');
@@ -536,4 +537,9 @@ Route::prefix('cekserialnumber')->group(function () {
     Route::post('/detail', [\App\Http\Controllers\cekserialnumber\CekserialnumberController::class, 'detailSerial']);
 });
 
-
+// Endpoint: List SO API
+Route::prefix('listso')->group(function () {
+    Route::post('/data-ar-report', [ListsoController::class, 'dataArReport']);
+    Route::get('/detail-so/{id}', [ListsoController::class, 'detailSo']);
+    Route::get('/view-so/{id}', [ListsoController::class, 'viewSo']);
+});
