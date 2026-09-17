@@ -551,3 +551,22 @@ Route::prefix('listpayment')->group(function () {
     Route::get('/detail-so/{id}', [ListpaymentController::class, 'detailSo']);
     Route::get('/view-so/{id}', [ListpaymentController::class, 'viewSo']);
 });
+
+// Endpoint: Dashboard API
+Route::prefix('dashboard')->group(function () {
+    Route::post('/data_customers', [\App\Http\Controllers\dashboard\DashboardController::class, 'dataCustomers']);
+    Route::post('/data_ar_report', [\App\Http\Controllers\dashboard\DashboardController::class, 'dataArReport']);
+    Route::get('/data_teknisi_pp', [\App\Http\Controllers\dashboard\DashboardController::class, 'dataTeknisiPp']);
+    Route::get('/data_teknisi_pl', [\App\Http\Controllers\dashboard\DashboardController::class, 'dataTeknisiPl']);
+    Route::get('/data_jadwal_lkt', [\App\Http\Controllers\dashboard\DashboardController::class, 'dataJadwalLkt']);
+    Route::post('/data_total_request_pending_progres', [\App\Http\Controllers\dashboard\DashboardController::class, 'dataTotalRequestPendingProgres']);
+    Route::post('/aging_ar', [\App\Http\Controllers\dashboard\DashboardController::class, 'agingAr']);
+    Route::post('/data_ar_report2', [\App\Http\Controllers\dashboard\DashboardController::class, 'dataArReport2']);
+    Route::get('/top_20_price_check_products/{month}/{year}', [\App\Http\Controllers\dashboard\DashboardController::class, 'top20PriceCheckProducts']);
+    Route::get('/top_products_quotations/{month}/{year}', [\App\Http\Controllers\dashboard\DashboardController::class, 'topProductsQuotations']);
+    Route::get('/quotation_and_so_statistics/{month}/{year}', [\App\Http\Controllers\dashboard\DashboardController::class, 'quotationAndSoStatistics']);
+    Route::post('/data_do_outstanding', [\App\Http\Controllers\dashboard\DashboardController::class, 'dataDoOutstanding']);
+    Route::get('/data_request_csr', [\App\Http\Controllers\dashboard\DashboardController::class, 'dataRequestCsr']);
+    Route::get('/data_pending_cst', [\App\Http\Controllers\dashboard\DashboardController::class, 'dataPendingCst']);
+    Route::get('/data_ongoing_cst', [\App\Http\Controllers\dashboard\DashboardController::class, 'dataOngoingCst']);
+});
