@@ -552,6 +552,15 @@ Route::prefix('listpayment')->group(function () {
     Route::get('/view-so/{id}', [ListpaymentController::class, 'viewSo']);
 });
 
+// Endpoint: Employee Divisi API
+Route::prefix('employeedivisi')->group(function () {
+    Route::get('/', [\App\Http\Controllers\employeedivisi\EmployeedivisiController::class, 'index']);
+    Route::get('/{id}', [\App\Http\Controllers\employeedivisi\EmployeedivisiController::class, 'show']);
+    Route::post('/', [\App\Http\Controllers\employeedivisi\EmployeedivisiController::class, 'store']);
+    Route::put('/{id}', [\App\Http\Controllers\employeedivisi\EmployeedivisiController::class, 'update']);
+    Route::delete('/{id}', [\App\Http\Controllers\employeedivisi\EmployeedivisiController::class, 'destroy']);
+});
+
 // Endpoint: Dashboard API
 Route::prefix('dashboard')->group(function () {
     Route::post('/data_customers', [\App\Http\Controllers\dashboard\DashboardController::class, 'dataCustomers']);
