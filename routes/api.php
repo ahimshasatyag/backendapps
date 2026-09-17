@@ -23,6 +23,7 @@ use App\Http\Controllers\salescontract\SalescontractController;
 use App\Http\Controllers\salesretur\SalesreturController;
 use App\Http\Controllers\suppliers\SupplierController;
 use App\Http\Controllers\listso\ListsoController;
+use App\Http\Controllers\listpayment\ListpaymentController;
 
 // Endpoint: POST /api/login
 Route::post('/login', [LoginController::class, 'login'])->name('api.login');
@@ -542,4 +543,11 @@ Route::prefix('listso')->group(function () {
     Route::post('/data-ar-report', [ListsoController::class, 'dataArReport']);
     Route::get('/detail-so/{id}', [ListsoController::class, 'detailSo']);
     Route::get('/view-so/{id}', [ListsoController::class, 'viewSo']);
+});
+
+// Endpoint: List Payment API
+Route::prefix('listpayment')->group(function () {
+    Route::post('/data-ar-report', [ListpaymentController::class, 'dataArReport']);
+    Route::get('/detail-so/{id}', [ListpaymentController::class, 'detailSo']);
+    Route::get('/view-so/{id}', [ListpaymentController::class, 'viewSo']);
 });
