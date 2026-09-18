@@ -27,6 +27,7 @@ use App\Http\Controllers\suppliers\SupplierController;
 use App\Http\Controllers\listso\ListsoController;
 use App\Http\Controllers\listpayment\ListpaymentController;
 use App\Http\Controllers\Leads\LeadsController;
+use App\Http\Controllers\Profile\ProfileController;
 
 // Endpoint: POST /api/login
 Route::post('/login', [LoginController::class, 'login'])->name('api.login');
@@ -48,6 +49,11 @@ Route::prefix('users')->group(function () {
     Route::get('/{username}', [UserController::class, 'show']);   // edit() / data_header()
     Route::post('/', [UserController::class, 'store']);           // simpan()
     Route::put('/{username}', [UserController::class, 'update']); // update()
+});
+
+// Endpoint: Profile API
+Route::prefix('profile')->group(function () {
+    Route::get('/{username}', [ProfileController::class, 'show']);
 });
 
 // Endpoint: User Log API
