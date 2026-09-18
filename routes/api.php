@@ -26,6 +26,7 @@ use App\Http\Controllers\salesretur\SalesreturController;
 use App\Http\Controllers\suppliers\SupplierController;
 use App\Http\Controllers\listso\ListsoController;
 use App\Http\Controllers\listpayment\ListpaymentController;
+use App\Http\Controllers\Leads\LeadsController;
 
 // Endpoint: POST /api/login
 Route::post('/login', [LoginController::class, 'login'])->name('api.login');
@@ -395,6 +396,16 @@ Route::prefix('salesretur')->group(function () {
     Route::put('/{id}', [SalesreturController::class, 'update']);
     Route::post('/{id}/confirm', [SalesreturController::class, 'confirm']);
     Route::post('/{id}/cancel', [SalesreturController::class, 'cancel']);
+});
+
+// Endpoint: Leads API
+Route::prefix('leads')->group(function () {
+    Route::get('/', [LeadsController::class, 'index']);
+    Route::get('/{id}', [LeadsController::class, 'show']);
+    Route::post('/', [LeadsController::class, 'store']);
+    Route::put('/{id}', [LeadsController::class, 'update']);
+    Route::put('/{id}/status', [LeadsController::class, 'updateStatus']);
+    Route::delete('/{id}', [LeadsController::class, 'destroy']);
 });
 
 // Endpoint: Suppliers API
