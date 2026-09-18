@@ -14,6 +14,8 @@ use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\Approvalitems\ApprovalItemsController;
 use App\Http\Controllers\Approvalscheme\ApprovalSchemeController;
 use App\Http\Controllers\Employee\EmployeeController;
+use App\Http\Controllers\Employeeposisi\EmployeePosisiController;
+use App\Http\Controllers\employeedivisi\EmployeedivisiController;
 use App\Http\Controllers\Customers\CustomerController;
 use App\Http\Controllers\Customerscontact\CustomerContactController;
 use App\Http\Controllers\Product\ProductController;
@@ -119,6 +121,24 @@ Route::prefix('employee')->group(function () {
     Route::post('/', [EmployeeController::class, 'store']);
     Route::put('/{id}', [EmployeeController::class, 'update']);
     Route::delete('/{id}', [EmployeeController::class, 'destroy']);
+});
+
+// Endpoint: Employee Divisi API
+Route::prefix('employeedivisi')->group(function () {
+    Route::get('/', [EmployeedivisiController::class, 'index']);
+    Route::get('/{id}', [EmployeedivisiController::class, 'show']);
+    Route::post('/', [EmployeedivisiController::class, 'store']);
+    Route::put('/{id}', [EmployeedivisiController::class, 'update']);
+    Route::delete('/{id}', [EmployeedivisiController::class, 'destroy']);
+});
+
+// Endpoint: Employee Posisi API
+Route::prefix('employeeposisi')->group(function () {
+    Route::get('/', [EmployeePosisiController::class, 'index']);
+    Route::get('/{id}', [EmployeePosisiController::class, 'show']);
+    Route::post('/', [EmployeePosisiController::class, 'store']);
+    Route::put('/{id}', [EmployeePosisiController::class, 'update']);
+    Route::delete('/{id}', [EmployeePosisiController::class, 'destroy']);
 });
 
 // Endpoint: Customers API
@@ -550,15 +570,6 @@ Route::prefix('listpayment')->group(function () {
     Route::post('/data-ar-report', [ListpaymentController::class, 'dataArReport']);
     Route::get('/detail-so/{id}', [ListpaymentController::class, 'detailSo']);
     Route::get('/view-so/{id}', [ListpaymentController::class, 'viewSo']);
-});
-
-// Endpoint: Employee Divisi API
-Route::prefix('employeedivisi')->group(function () {
-    Route::get('/', [\App\Http\Controllers\employeedivisi\EmployeedivisiController::class, 'index']);
-    Route::get('/{id}', [\App\Http\Controllers\employeedivisi\EmployeedivisiController::class, 'show']);
-    Route::post('/', [\App\Http\Controllers\employeedivisi\EmployeedivisiController::class, 'store']);
-    Route::put('/{id}', [\App\Http\Controllers\employeedivisi\EmployeedivisiController::class, 'update']);
-    Route::delete('/{id}', [\App\Http\Controllers\employeedivisi\EmployeedivisiController::class, 'destroy']);
 });
 
 // Endpoint: Dashboard API

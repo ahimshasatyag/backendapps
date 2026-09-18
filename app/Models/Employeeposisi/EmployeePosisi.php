@@ -12,6 +12,11 @@ class EmployeePosisi extends Model
     protected $table = 'm_karyawan_posisi';
     protected $primaryKey = 'id_karyawan_posisi';
 
+    protected $fillable = [
+        'id_karyawan_posisi',
+        'nm_karyawan_posisi',
+    ];
+
     const CREATED_AT = 'date_create';
     const UPDATED_AT = 'date_update';
 }
